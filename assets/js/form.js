@@ -4,7 +4,7 @@
  */
 
 // Google Apps Script Web App Endpoint URL (スプレッドシート自動保存 & メール通知: corico.20260609@gmail.com)
-const GAS_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbxdKrn_8aUaih_MUrVIgewbQs70rPpt9dzghVhlhdmNbcrD6NeWuyBR0ztfUZjpZkof/exec';
+const GAS_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbx-5sjCj-JSrDZO4GWp_hk3sCcPyDpZm9CNe-hIkT0fj2vemlttE1GpCFYYWnVOFRQf/exec';
 
 // Google Form (formResponse) Fallback URL
 const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdlWEgG-w09HqXrSTF6ayxUgXY9XV3ZbQIHwHBgksL-7pYEZQ/formResponse';
