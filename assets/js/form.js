@@ -31,7 +31,8 @@ function initContactForm() {
 
   // Type selection buttons
   typeButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
       typeButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
@@ -134,6 +135,15 @@ function initContactForm() {
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<span>送信中...</span>';
 
+    // Accurately capture selected inquiry type
+    let selectedInquiryType = '見学・無料体験予約';
+    const activeTypeBtn = document.querySelector('.form-type-btn.active');
+    if (activeTypeBtn) {
+      selectedInquiryType = activeTypeBtn.getAttribute('data-type') || activeTypeBtn.innerText.replace(/^[^\w\s\u3000-\u9fff]+/u, '').trim();
+    } else if (typeInput && typeInput.value) {
+      selectedInquiryType = typeInput.value;
+    }
+
     // Collect concerns
     const concernsChecked = Array.from(form.querySelectorAll('input[type="checkbox"]:checked'))
       .filter(cb => cb.id !== 'privacyConsent')
@@ -141,7 +151,7 @@ function initContactForm() {
       .join(', ');
 
     const payload = {
-      inquiryType: typeInput ? typeInput.value : '見学・無料体験予約',
+      inquiryType: selectedInquiryType,
       parentName: parentName.value.trim(),
       parentKana: document.getElementById('parentKana') ? document.getElementById('parentKana').value.trim() : '',
       childInfo: childInfo.value.trim(),
