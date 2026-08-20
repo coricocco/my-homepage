@@ -3,33 +3,36 @@
    ========================================================================== */
 
 :root {
-  /* Brand Color Palette */
-  --color-primary: #f97316;          /* Corico Warm Orange - 元気と温もり */
-  --color-primary-hover: #ea580c;
-  --color-primary-light: #fff7ed;
-  --color-primary-soft: #fed7aa;
+  /* Brand Color Palette - Official Logo Colors (Orange, Azure, Green + Accent Yellow) */
+  --color-primary: #F58235;          /* Logo Warm Orange - 元気と温もり */
+  --color-primary-hover: #E06D20;
+  --color-primary-light: #FFF5EE;
+  --color-primary-soft: #FEDCC4;
 
-  --color-secondary: #0284c7;        /* Sky Blue - 自立と羽ばたく空 */
-  --color-secondary-hover: #0369a1;
-  --color-secondary-light: #f0f9ff;
-  --color-secondary-soft: #bae6fd;
+  --color-secondary: #5AADC5;        /* Logo Azure Blue - 自立と羽ばたく空 */
+  --color-secondary-hover: #479BB4;
+  --color-secondary-light: #F0F9FB;
+  --color-secondary-soft: #C8E7F0;
 
-  --color-accent-green: #10b981;     /* Meadow Green - 成長と安心感 */
-  --color-accent-green-light: #ecfdf5;
-  --color-accent-green-soft: #a7f3d0;
+  --color-accent-green: #489956;     /* Logo Natural Green - 成長と安心感 */
+  --color-accent-green-hover: #3B8246;
+  --color-accent-green-light: #F0FDF4;
+  --color-accent-green-soft: #C2E7C8;
 
-  --color-accent-yellow: #f59e0b;    /* Sun Yellow - 小さな成功体験と自信 */
-  --color-accent-yellow-light: #fffbeb;
+  --color-accent-yellow: #F6E258;    /* Logo Accent Yellow - ひらめきと輝く笑顔 */
+  --color-accent-yellow-hover: #E6D03E;
+  --color-accent-yellow-light: #FEFCE8;
+  --color-accent-yellow-soft: #FAF1A8;
 
-  --color-navy: #1e293b;             /* Deep Slate Navy - 法人としての信頼感・可読性 */
+  --color-navy: #1E293B;             /* Deep Slate Navy - 法人としての信頼感・可読性 */
   --color-navy-light: #334155;
 
   /* Neutral & Background Colors */
-  --color-bg-main: #fffdfa;          /* やさしいアイボリーホワイト */
-  --color-bg-sub: #fbf7f0;           /* ナチュラルなウォームベージュ */
-  --color-bg-card: #ffffff;
-  --color-border: #f0e6d6;
-  --color-border-hover: #e2d3be;
+  --color-bg-main: #FFFDF9;          /* やさしいアイボリーホワイト */
+  --color-bg-sub: #F7FAF9;           /* 爽やかなペールグリーン/アジュール調背景 */
+  --color-bg-card: #FFFFFF;
+  --color-border: #E8F0EE;
+  --color-border-hover: #D0E4DF;
 
   /* Typography Colors */
   --color-text-main: #2d3748;
@@ -80,12 +83,14 @@
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(180, 140, 100, 0.08);
-  --shadow-md: 0 6px 16px rgba(180, 140, 100, 0.1);
-  --shadow-lg: 0 12px 30px rgba(180, 140, 100, 0.12);
-  --shadow-xl: 0 20px 40px rgba(180, 140, 100, 0.15);
-  --shadow-glow-orange: 0 8px 25px rgba(249, 115, 22, 0.3);
-  --shadow-glow-blue: 0 8px 25px rgba(2, 132, 199, 0.25);
+  --shadow-sm: 0 2px 8px rgba(70, 95, 90, 0.06);
+  --shadow-md: 0 6px 16px rgba(70, 95, 90, 0.08);
+  --shadow-lg: 0 12px 30px rgba(70, 95, 90, 0.1);
+  --shadow-xl: 0 20px 40px rgba(70, 95, 90, 0.12);
+  --shadow-glow-orange: 0 8px 25px rgba(245, 130, 53, 0.28);
+  --shadow-glow-azure: 0 8px 25px rgba(90, 173, 197, 0.28);
+  --shadow-glow-green: 0 8px 25px rgba(72, 153, 86, 0.28);
+  --shadow-glow-yellow: 0 8px 25px rgba(246, 226, 88, 0.35);
 
   /* Container */
   --container-max: 1200px;

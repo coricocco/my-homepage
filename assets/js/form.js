@@ -1,6 +1,13 @@
 /**
- * Form Handling & Validation - 放課後等デイサービス コリコッコ
+ * Form Handling, Validation & Google Spreadsheet (GAS) Integration
+ * 放課後等デイサービス コリコッコ / 合同会社コリコ
  */
+
+// Google Apps Script Web App Endpoint URL (スプレッドシート自動保存 & メール通知: corico.20260609@gmail.com)
+const GAS_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbxdKrn_8aUaih_MUrVIgewbQs70rPpt9dzghVhlhdmNbcrD6NeWuyBR0ztfUZjpZkof/exec';
+
+// Google Form (formResponse) Fallback URL
+const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdlWEgG-w09HqXrSTF6ayxUgXY9XV3ZbQIHwHBgksL-7pYEZQ/formResponse';
 
 document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
@@ -31,19 +38,15 @@ function initContactForm() {
       const selectedType = btn.getAttribute('data-type');
       if (typeInput) typeInput.value = selectedType;
 
-      // Toggle preferred date requirement/visibility
+      // Toggle preferred date visibility
       if (dateGroup) {
-        if (selectedType === '見学・無料体験予約') {
-          dateGroup.style.display = 'block';
-        } else {
-          dateGroup.style.display = 'block'; // Keep visible as optional
-        }
+        dateGroup.style.display = 'block';
       }
     });
   });
 
   // Form submission handler
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     let isValid = true;
@@ -97,12 +100,16 @@ function initContactForm() {
       setError(email, '正しいメールアドレスの形式でご入力ください。');
     }
 
-    // Phone
+    // Phone normalization (convert full-width numbers & hyphens to half-width)
+    let phoneVal = phone.value.trim().replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0));
+    phoneVal = phoneVal.replace(/[ー−―ー]/g, '-').replace(/\s+/g, '');
+    phone.value = phoneVal;
+
     const phoneRegex = /^0\d{1,4}-?\d{1,4}-?\d{3,4}$/;
-    if (!phone.value.trim()) {
+    if (!phoneVal) {
       setError(phone, 'お電話番号をご入力ください。');
-    } else if (!phoneRegex.test(phone.value.trim().replace(/\s+/g, ''))) {
-      setError(phone, '有効な電話番号（例: 090-1234-5678）をご入力ください。');
+    } else if (!phoneRegex.test(phoneVal)) {
+      setError(phone, '有効な電話番号（例: 076-200-8467）をご入力ください。');
     }
 
     // Privacy Consent
@@ -111,6 +118,7 @@ function initContactForm() {
       isValid = false;
     }
 
+    // If validation fails, block form submission
     if (!isValid) {
       const firstError = form.querySelector('.form-control.error');
       if (firstError) {
@@ -119,26 +127,67 @@ function initContactForm() {
       return;
     }
 
-    // Validated - simulate submission
+    // Validation PASSED: Send data
     const submitBtn = form.querySelector('.form-submit-btn');
     const originalText = submitBtn.innerHTML;
 
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<span>送信中...</span>';
 
-    setTimeout(() => {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalText;
+    // Collect concerns
+    const concernsChecked = Array.from(form.querySelectorAll('input[type="checkbox"]:checked'))
+      .filter(cb => cb.id !== 'privacyConsent')
+      .map(cb => cb.value)
+      .join(', ');
 
-      // Show Success Modal
-      if (successModal) {
-        successModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
+    const payload = {
+      inquiryType: typeInput ? typeInput.value : '見学・無料体験予約',
+      parentName: parentName.value.trim(),
+      parentKana: document.getElementById('parentKana') ? document.getElementById('parentKana').value.trim() : '',
+      childInfo: childInfo.value.trim(),
+      certificateStatus: document.getElementById('certificateStatus') ? document.getElementById('certificateStatus').value : '持っていない（申請サポート希望）',
+      email: email.value.trim(),
+      phone: phoneVal,
+      preferredDate: document.getElementById('preferredDate') ? document.getElementById('preferredDate').value : '',
+      concerns: concernsChecked,
+      message: document.getElementById('message') ? document.getElementById('message').value.trim() : ''
+    };
 
-      form.reset();
-      typeButtons[0].click(); // reset to first type
-    }, 900);
+    // 1. Send to Google Apps Script Web App (mode: 'no-cors' allows seamless cross-origin POST on mobile)
+    try {
+      await fetch(GAS_ENDPOINT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.warn('GAS submission notice:', err);
+    }
+
+    // 2. Secondary fallback submit to Google Form
+    try {
+      HTMLFormElement.prototype.submit.call(form);
+    } catch (e) {
+      // ignore
+    }
+
+    // Ensure smooth UI transition
+    await new Promise(resolve => setTimeout(resolve, 600));
+
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalText;
+
+    // Show Success Modal
+    if (successModal) {
+      successModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    form.reset();
+    typeButtons[0].click(); // reset to first type
   });
 
   // Real-time error clearing on input
