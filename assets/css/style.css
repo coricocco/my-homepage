@@ -1156,18 +1156,23 @@ ul, ol {
 }
 
 .program-card-img {
-  height: 180px;
+  height: 200px;
   overflow: hidden;
   margin-top: auto;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 .program-card-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   transition: transform var(--transition-smooth);
 }
+.program-card-img.exercise-img img {
+  object-position: 55% 10%;
+}
 .program-card:hover .program-card-img img {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
 /* --------------------------------------------------------------------------
