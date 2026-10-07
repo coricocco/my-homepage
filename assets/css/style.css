@@ -445,6 +445,103 @@ ul, ol {
   background-color: var(--color-secondary-light);
 }
 
+/* Header SNS Links */
+.header-sns-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sns-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.sns-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.sns-btn.sns-instagram {
+  color: #ffffff;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  box-shadow: 0 2px 6px rgba(214, 36, 159, 0.25);
+}
+
+.sns-btn.sns-instagram:hover {
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 4px 10px rgba(214, 36, 159, 0.4);
+}
+
+.sns-btn.sns-line {
+  color: #ffffff;
+  background-color: #06C755;
+  box-shadow: 0 2px 6px rgba(6, 199, 85, 0.25);
+}
+
+.sns-btn.sns-line:hover {
+  transform: translateY(-2px) scale(1.08);
+  background-color: #05b04c;
+  box-shadow: 0 4px 10px rgba(6, 199, 85, 0.4);
+}
+
+/* Mobile Drawer SNS List */
+.drawer-sns-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.drawer-sns-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  flex: 1;
+  justify-content: center;
+  transition: transform var(--transition-fast);
+}
+
+.drawer-sns-btn:hover {
+  transform: translateY(-2px);
+}
+
+.drawer-sns-btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.drawer-sns-btn.sns-instagram {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+.drawer-sns-btn.sns-line {
+  background-color: #06C755;
+}
+
+/* Footer SNS */
+.footer-sns-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
 /* Mobile Hamburger */
 .mobile-menu-btn {
   display: flex;

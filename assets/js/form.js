@@ -155,6 +155,7 @@ function initContactForm() {
       parentName: parentName.value.trim(),
       parentKana: document.getElementById('parentKana') ? document.getElementById('parentKana').value.trim() : '',
       childInfo: childInfo.value.trim(),
+      schoolDistrict: document.getElementById('schoolDistrict') ? document.getElementById('schoolDistrict').value.trim() : '',
       certificateStatus: document.getElementById('certificateStatus') ? document.getElementById('certificateStatus').value : '持っていない（申請サポート希望）',
       email: email.value.trim(),
       phone: phoneVal,
